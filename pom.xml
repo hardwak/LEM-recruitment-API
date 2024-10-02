@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lemwroclaw</groupId>
-	<artifactId>LEM-recrutation-website</artifactId>
+	<artifactId>LEM-recruitment-website</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>LEM-recrutation-website</name>
-	<description>Website for recrutation process to LEM Wroclaw Motorsport</description>
+	<name>LEM-recruitment-website</name>
+	<description>Website for recruitment process to LEM Wroclaw Motorsport</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: LEM-recruitment-website
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lem-recruit-data
+    username: hardwak
+    password: qwerty
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
