@@ -20,14 +20,13 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
-    //requestMatchers ??? czy dobry string
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("lem71")
+                .requestMatchers("api/v1/auth/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
