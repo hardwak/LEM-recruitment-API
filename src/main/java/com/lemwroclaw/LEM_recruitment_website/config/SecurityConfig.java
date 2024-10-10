@@ -1,8 +1,6 @@
 package com.lemwroclaw.LEM_recruitment_website.config;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -11,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -22,43 +21,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf()
-                .disable()
-                .authorizeHttpRequests()
-                .requestMatchers("api/v1/auth/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-        /*
-        * http.addFilterAfter(firebaseAuthenticationTokenFilter, BasicAuthenticationFilter.class)
-                .cors(httpSecurityCorsConfigurer -> corsConfigurationSource(authProperties))
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(
-                        exceptionHandling ->
-                                exceptionHandling.authenticationEntryPoint(
-                                        jwtAuthenticationEntryPoint))
                 .authorizeHttpRequests(
                         authorize ->
                                 authorize
-                                        .requestMatchers(
-                                                unsecuredEndpoints(
-                                                        authProperties.getUnsecuredEndpoints()))
+                                        .requestMatchers("api/v1/auth/**")
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated())
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .anonymous(AbstractHttpConfigurer::disable)
-
-        * */
+                .authenticationProvider(authenticationProvider);
 
         return http.build();
     }
