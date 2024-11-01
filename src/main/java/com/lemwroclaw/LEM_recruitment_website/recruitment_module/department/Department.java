@@ -18,6 +18,7 @@ public class Department {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(unique = true)
     private String name;
     @OneToMany(
             mappedBy = "department",
