@@ -3,7 +3,6 @@ package com.lemwroclaw.LEM_recruitment_website.recruitment_module.recruitment;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.application.Application;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.task.Task;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.department.Department;
-import com.lemwroclaw.LEM_recruitment_website.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +21,7 @@ public class Recruitment {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(nullable = false)
     private String title;
     private String description;
     @ManyToOne

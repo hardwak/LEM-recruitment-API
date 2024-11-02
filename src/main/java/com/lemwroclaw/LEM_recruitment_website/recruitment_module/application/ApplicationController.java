@@ -2,6 +2,7 @@ package com.lemwroclaw.LEM_recruitment_website.recruitment_module.application;
 
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.application.dto.ApplicationCreationDTO;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.application.dto.ApplicationResponseDTO;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class ApplicationController {
     }
 
     @PostMapping
-    public ResponseEntity<ApplicationResponseDTO> createApplication(@RequestBody ApplicationCreationDTO applicationCreationDTO) {
+    public ResponseEntity<ApplicationResponseDTO> createApplication(@Valid @RequestBody ApplicationCreationDTO applicationCreationDTO) {
         return applicationService.createApplication(applicationCreationDTO);
     }
 
