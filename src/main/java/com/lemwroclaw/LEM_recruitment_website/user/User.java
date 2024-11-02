@@ -1,5 +1,6 @@
 package com.lemwroclaw.LEM_recruitment_website.user;
 
+import com.lemwroclaw.LEM_recruitment_website.recruitment_module.application.Application;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,13 +22,25 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
+    @Column(nullable = false)
     private String firstname;
+    @Column(nullable = false)
     private String lastname;
+    @Column(
+            unique = true,
+            nullable = false
+    )
     private String email;
+    @Column(nullable = false)
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(
+            mappedBy = "owner",
+            cascade = CascadeType.ALL
+    )
+    private List<Application> applications;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
