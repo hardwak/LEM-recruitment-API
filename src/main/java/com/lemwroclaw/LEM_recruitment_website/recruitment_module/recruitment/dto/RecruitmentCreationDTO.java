@@ -8,6 +8,7 @@ import java.util.Date;
 public record RecruitmentCreationDTO(
         @NotBlank String title,
         String description,
+        @NotBlank
         String department,
         Date startDate,
         @FutureOrPresent

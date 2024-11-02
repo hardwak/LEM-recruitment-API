@@ -22,6 +22,10 @@ public class RecruitmentService {
     //TODO returns name of department if it does not exists
     public ResponseEntity<RecruitmentCreationDTO> createRecruitment(RecruitmentCreationDTO recruitmentCreationDTO) {
         Recruitment recruitment = recruitmentMapper.toRecruitment(recruitmentCreationDTO);
+
+        if (recruitment.getDepartment() == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
         recruitmentRepository.save(recruitment);
         return new ResponseEntity<>(recruitmentCreationDTO, HttpStatus.CREATED);
     }

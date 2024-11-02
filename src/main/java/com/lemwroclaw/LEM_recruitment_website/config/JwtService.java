@@ -17,6 +17,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
+    //TODO change and hide key
     private static final String SECRET_KEY = "2d396cc5c12b827d5cf8bd1418fe8e52877289b1abe65a51c513df7fa62f5cda";
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
