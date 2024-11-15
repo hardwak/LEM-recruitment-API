@@ -6,6 +6,6 @@ import jakarta.validation.constraints.NotNull;
 public record ApplicationCreationDTO(
         @NotNull Long userId,
         @NotNull Long recruitmentId,
-        @NotBlank String content
+        @NotBlank String answers
 ) {
 }

@@ -3,6 +3,7 @@ package com.lemwroclaw.LEM_recruitment_website.recruitment_module.department;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.department.dto.DepartmentDTO;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.department.dto.DepartmentDTOId;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class DepartmentController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public DepartmentDTO addDepartment(@Valid @RequestBody DepartmentDTO departmentDTO) {
         return departmentService.addDepartment(departmentDTO);
     }
@@ -33,6 +35,7 @@ public class DepartmentController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public void deleteDepartmentById(@PathVariable Long id) {
         departmentService.deleteDepartmentById(id);
     }

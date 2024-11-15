@@ -3,6 +3,6 @@ package com.lemwroclaw.LEM_recruitment_website.recruitment_module.application.dt
 public record ApplicationResponseDTO(
     String owner,
     String recruitment,
-    String content
+    String answers
 ) {
 }

@@ -4,6 +4,7 @@ import com.lemwroclaw.LEM_recruitment_website.recruitment_module.recruitment.dto
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.recruitment.dto.RecruitmentResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class RecruitmentController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public ResponseEntity<RecruitmentCreationDTO> createRecruitment(@Valid @RequestBody RecruitmentCreationDTO dto) {
         return recruitmentService.createRecruitment(dto);
     }
@@ -34,6 +36,7 @@ public class RecruitmentController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public void deleteRecruitment(@PathVariable Long id) {
         recruitmentService.deleteRecruitmentById(id);
     }

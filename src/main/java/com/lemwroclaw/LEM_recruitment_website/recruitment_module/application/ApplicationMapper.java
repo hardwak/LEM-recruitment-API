@@ -6,6 +6,8 @@ import com.lemwroclaw.LEM_recruitment_website.recruitment_module.recruitment.Rec
 import com.lemwroclaw.LEM_recruitment_website.user.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ApplicationMapper {
 
@@ -21,7 +23,7 @@ public class ApplicationMapper {
         return Application.builder()
                 .owner(userRepository.findById(dto.userId()).orElse(null))
                 .recruitment(recruitmentRepository.findById(dto.recruitmentId()).orElse(null))
-                .content(dto.content())
+                .answers(dto.answers())
                 .build();
     }
 
@@ -29,7 +31,13 @@ public class ApplicationMapper {
         return new ApplicationResponseDTO(
                 application.getOwner().getEmail(),
                 application.getRecruitment().getTitle(),
-                application.getContent()
+                application.getAnswers()
         );
+    }
+
+    public List<ApplicationResponseDTO> toApplicationResponseDTOList(List<Application> applications) {
+        return applications.stream()
+                .map(this::toApplicationResponseDTO)
+                .toList();
     }
 }

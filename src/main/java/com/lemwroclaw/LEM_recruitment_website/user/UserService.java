@@ -18,6 +18,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    //admin
     public ResponseEntity<UserResponseDTO> createUser(UserCreationDTO dto){
         try {
             Role.valueOf(dto.role());

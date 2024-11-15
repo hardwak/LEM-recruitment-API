@@ -29,7 +29,6 @@ public class Application {
             nullable = false
     )
     private Recruitment recruitment;
-    @Column(nullable = false)
-    private String content;
+    private String answers;
 
 }

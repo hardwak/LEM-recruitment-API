@@ -4,6 +4,7 @@ import com.lemwroclaw.LEM_recruitment_website.recruitment_module.task.dto.TaskCr
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.task.dto.TaskResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +20,13 @@ public class TaskController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public ResponseEntity<TaskResponseDTO> createTask(@Valid @RequestBody TaskCreationDTO dto) {
         return taskService.createTask(dto);
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public ResponseEntity<List<TaskResponseDTO>> getTasks() {
         return taskService.getAllTasks();
     }
@@ -34,6 +37,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTaskById(id);
     }

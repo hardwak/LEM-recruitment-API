@@ -2,6 +2,7 @@ package com.lemwroclaw.LEM_recruitment_website.recruitment_module.task;
 
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.task.dto.TaskCreationDTO;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.task.dto.TaskResponseDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class TaskService {
                 .toList();
 
         if(tasks.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         return ResponseEntity.ok(tasks);
