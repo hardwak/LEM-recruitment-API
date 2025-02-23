@@ -1,32 +1,26 @@
 package com.lemwroclaw.LEM_recruitment_website.recruitment_module.application;
 
-import com.lemwroclaw.LEM_recruitment_website.config.JwtService;
+import com.lemwroclaw.LEM_recruitment_website.auth.AuthenticationService;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.application.dto.ApplicationCreationDTO;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.application.dto.ApplicationResponseDTO;
 import com.lemwroclaw.LEM_recruitment_website.recruitment_module.recruitment.RecruitmentRepository;
 import com.lemwroclaw.LEM_recruitment_website.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final ApplicationMapper applicationMapper;
-    private final JwtService jwtService;
     private final UserRepository userRepository;
     private final RecruitmentRepository recruitmentRepository;
-
-    public ApplicationService(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, JwtService jwtService, UserRepository userRepository, RecruitmentRepository recruitmentRepository) {
-        this.applicationRepository = applicationRepository;
-        this.applicationMapper = applicationMapper;
-        this.jwtService = jwtService;
-        this.userRepository = userRepository;
-        this.recruitmentRepository = recruitmentRepository;
-    }
+    private final AuthenticationService authenticationService;
 
     public ResponseEntity<ApplicationResponseDTO> createApplication(ApplicationCreationDTO dto) {
         Application application = applicationMapper.toApplication(dto);
@@ -66,7 +60,7 @@ public class ApplicationService {
 
     public ResponseEntity<List<ApplicationResponseDTO>> getApplicationsOfCurrentUser() {
         var applications = applicationMapper.toApplicationResponseDTOList(
-                applicationRepository.findAllByOwnerEmail(jwtService.getAuthenticatedUserEmail())
+                applicationRepository.findAllByOwnerEmail(authenticationService.getAuthenticatedUserEmail())
         );
 
         if (applications.isEmpty()) {

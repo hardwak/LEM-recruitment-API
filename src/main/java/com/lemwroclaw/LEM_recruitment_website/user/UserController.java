@@ -1,6 +1,8 @@
 package com.lemwroclaw.LEM_recruitment_website.user;
 
+import com.lemwroclaw.LEM_recruitment_website.user.dto.UserAdminUpdateDTO;
 import com.lemwroclaw.LEM_recruitment_website.user.dto.UserCreationDTO;
+import com.lemwroclaw.LEM_recruitment_website.user.dto.UserPasswordUpdateDTO;
 import com.lemwroclaw.LEM_recruitment_website.user.dto.UserResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -37,9 +39,25 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserResponseDTO> updateUser(
+            @Valid @RequestBody UserAdminUpdateDTO dto,
+            @PathVariable Long id
+    ){
+        return userService.updateUser(id, dto);
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteUserById(@PathVariable Long id){
         userService.deleteUserById(id);
     }
+
+    @PutMapping("/my-account/change-password")
+    public ResponseEntity<?> changePassword(@Valid @RequestBody UserPasswordUpdateDTO dto){
+        return userService.changePassword(dto);
+    }
+
+
 }
